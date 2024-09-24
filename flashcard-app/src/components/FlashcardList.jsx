@@ -1,6 +1,6 @@
 import React from 'react';
-import Flashcard from './Flashcard';
-import { useFlashcardContext } from '../context/FlashcardContext';
+import Flashcard from './Flashcard.jsx';
+import { useFlashcardContext } from '../context/FlashcardContext.jsx';
 import './FlashcardList.css';
 
 const FlashcardList = () => {
