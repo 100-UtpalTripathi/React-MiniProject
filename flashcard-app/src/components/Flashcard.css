@@ -1,12 +1,35 @@
 .card {
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+  background-color: #2a2a2a; /* Dark background */
+  color: white; /* White text */
+  border: 1px solid #555555;
 }
 
 .card-body {
-  backface-visibility: hidden;
+  background-color: #1e1e1e; /* Darker background for the body */
 }
 
-.flipped {
-  transform: rotateY(180deg);
+.card-footer {
+  background-color: #3a3a3a;
+  color: #aaaaaa;
+}
+
+.card-title {
+  color: #ffffff;
+}
+
+.flipped .card-body {
+  background-color: #3a3a3a;
+}
+
+.text-muted {
+  color: #aaaaaa !important;
+}
+
+.bg-secondary {
+  background-color: #444444 !important;
+}
+
+.bg-dark {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFlashcardContext } from '../context/FlashcardContext.jsx';
+import './FlashcardForm.css';
 
 const FlashcardForm = () => {
   const { dispatch } = useFlashcardContext();
@@ -16,7 +17,7 @@ const FlashcardForm = () => {
   };
 
   return (
-    <div className="mt-4">
+    <div className="flashcard-form mt-4">
       <div className="form-group">
         <input
           type="text"
@@ -36,7 +37,7 @@ const FlashcardForm = () => {
         />
       </div>
       <button className="btn btn-primary" onClick={handleAddFlashcard}>
-        Add Flashcard
+        Add New Flashcard
       </button>
     </div>
   );
