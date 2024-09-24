@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFlashcardContext } from '../context/FlashcardContext';
+import { useFlashcardContext } from '../context/FlashcardContext.jsx';
 
 const ReviewSummary = () => {
   const { state } = useFlashcardContext();
@@ -26,3 +26,5 @@ const ReviewSummary = () => {
 };
 
 export default ReviewSummary;
+
+

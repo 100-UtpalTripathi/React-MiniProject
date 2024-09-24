@@ -9,14 +9,18 @@ import './App.css';
 const App = () => {
   return (
     <FlashcardProvider>
-      <div className="container mt-2">
-        <h1>Flashcard App</h1>
-        <FlashcardForm />
-        <FlashcardList />
-        <Navigation />
-        <ReviewSummary />
-      </div>
-    </FlashcardProvider>
+    <div className="container mt-2 justify-content-center">
+      <h1>Flashcard App</h1>
+      <p className="text-center">
+        This app is basically your digital cram session—perfect for memorizing and 
+        "mugging up" those tricky terminologies like a pro! 🧠💡
+      </p>
+      <FlashcardForm />
+      <FlashcardList />
+      <Navigation />
+      <ReviewSummary />
+    </div>
+  </FlashcardProvider>
   );
 };
 
