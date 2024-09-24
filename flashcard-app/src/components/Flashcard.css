@@ -1,0 +1,22 @@
+.card {
+    background-color: #495057; /* Darker card background */
+    border: none; /* Remove borders */
+    transition: transform 0.2s; /* Smooth flip animation */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Slightly enlarge card on hover */
+  }
+  
+  .card-body {
+    cursor: pointer; /* Pointer cursor for clickable card */
+  }
+  
+  .card-footer {
+    background-color: #343a40; /* Dark footer background */
+  }
+  
+  /* Flashcard Text Styles */
+  .card-title {
+    font-size: 1.5rem; /* Larger text for question/answer */
+  }

@@ -1,0 +1,12 @@
+.flashcard-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Style for the empty state */
+  .empty-state {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ced4da; /* Lighter text for empty state */
+  }
