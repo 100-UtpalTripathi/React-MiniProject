@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useFlashcardContext } from '../context/FlashcardContext.jsx';
+import { useFlashcardContext , useFlashcardContextDispatcher} from '../context/FlashcardContext.jsx';
 import './FlashcardForm.css';
 
 const FlashcardForm = () => {
-  const { dispatch } = useFlashcardContext();
+  console.log("FlashcardForm");
+  const { dispatch } = useFlashcardContextDispatcher();
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
 
@@ -43,4 +44,4 @@ const FlashcardForm = () => {
   );
 };
 
-export default FlashcardForm;
+export default React.memo(FlashcardForm);

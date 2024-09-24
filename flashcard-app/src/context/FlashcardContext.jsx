@@ -74,19 +74,26 @@ const flashcardReducer = (state, action) => {
 
 export const FlashcardContext = createContext();
 
+export const FlashcardContextDispatcher = createContext();
+
 export const FlashcardProvider = ({ children }) => {
   const [state, dispatch] = useReducer(flashcardReducer, initialState);
 
   return (
-    <FlashcardContext.Provider value={{ state, dispatch }}>
-      {children}
-    </FlashcardContext.Provider>
+    <FlashcardContextDispatcher.Provider value={{ dispatch }}>
+      <FlashcardContext.Provider value={{ state }}>{children}</FlashcardContext.Provider>
+        
+    </FlashcardContextDispatcher.Provider>
   );
 };
 
 // Custom hook for easier access to the context
 export const useFlashcardContext = () => {
   return React.useContext(FlashcardContext);
+};
+
+export const useFlashcardContextDispatcher = () => {
+  return React.useContext(FlashcardContextDispatcher);
 };
 
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { useFlashcardContext } from '../context/FlashcardContext.jsx';
+import { useFlashcardContext , useFlashcardContextDispatcher} from '../context/FlashcardContext.jsx';
 
 const Navigation = () => {
-  const { state, dispatch } = useFlashcardContext();
+  const { state } = useFlashcardContext();
+  const { dispatch } = useFlashcardContextDispatcher();
   const { flashcards, currentIndex } = state;
 
   const handleNext = () => {
