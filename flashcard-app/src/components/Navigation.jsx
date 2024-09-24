@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFlashcardContext } from '../context/FlashcardContext';
+import { useFlashcardContext } from '../context/FlashcardContext.jsx';
 
 const Navigation = () => {
   const { state, dispatch } = useFlashcardContext();
