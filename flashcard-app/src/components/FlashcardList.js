@@ -4,7 +4,7 @@ import { useFlashcardContext } from '../context/FlashcardContext';
 import './FlashcardList.css';
 
 const FlashcardList = () => {
-  const { state } = useFlashcardContext();
+  const { state, dispatch } = useFlashcardContext();
   const { flashcards, currentIndex } = state;
 
   if (flashcards.length === 0) {
@@ -13,10 +13,25 @@ const FlashcardList = () => {
 
   const currentFlashcard = flashcards[currentIndex];
 
+  const handleMarkKnown = () => {
+    dispatch({ type: 'MARK_KNOWN' });
+  };
+
+  const handleMarkUnknown = () => {
+    dispatch({ type: 'MARK_UNKNOWN' });
+  };
+
   return (
     <div>
       <Flashcard flashcard={currentFlashcard} />
-      {/* Additional buttons for navigation and actions will go here */}
+      <div className="mt-2">
+        <button className="btn btn-success mr-2" onClick={handleMarkKnown}>
+          Known
+        </button>
+        <button className="btn btn-danger" onClick={handleMarkUnknown}>
+          Unknown
+        </button>
+      </div>
     </div>
   );
 };

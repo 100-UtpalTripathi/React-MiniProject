@@ -9,7 +9,11 @@ const Flashcard = ({ flashcard }) => {
   };
 
   return (
-    <div className="card text-center mb-4" onClick={handleFlip} style={{ cursor: 'pointer' }}>
+    <div
+      className={`card text-center mb-4 ${flipped ? 'flipped' : ''}`}
+      onClick={handleFlip}
+      style={{ cursor: 'pointer' }}
+    >
       <div className={`card-body ${flipped ? 'bg-secondary text-white' : 'bg-dark text-white'}`}>
         <h5 className="card-title">{flipped ? flashcard.answer : flashcard.question}</h5>
       </div>

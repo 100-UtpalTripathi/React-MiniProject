@@ -35,17 +35,27 @@ const flashcardReducer = (state, action) => {
         return { ...state, flashcards: shuffledFlashcards };
         
       case 'MARK_KNOWN':
-        return { 
-          ...state, 
-          knownCount: state.knownCount + 1, 
-          currentIndex: (state.currentIndex + 1) % state.flashcards.length 
+        const updatedFlashcardsKnown = state.flashcards.map((flashcard, index) =>
+          index === state.currentIndex ? { ...flashcard, status: 'known' } : flashcard
+        );
+        localStorage.setItem('flashcards', JSON.stringify(updatedFlashcardsKnown));
+        return {
+          ...state,
+          knownCount: state.knownCount + 1,
+          flashcards: updatedFlashcardsKnown,
+          currentIndex: (state.currentIndex + 1) % state.flashcards.length,
         };
         
       case 'MARK_UNKNOWN':
-        return { 
-          ...state, 
-          unknownCount: state.unknownCount + 1, 
-          currentIndex: (state.currentIndex + 1) % state.flashcards.length 
+        const updatedFlashcardsUnknown = state.flashcards.map((flashcard, index) =>
+          index === state.currentIndex ? { ...flashcard, status: 'unknown' } : flashcard
+        );
+        localStorage.setItem('flashcards', JSON.stringify(updatedFlashcardsUnknown));
+        return {
+          ...state,
+          unknownCount: state.unknownCount + 1,
+          flashcards: updatedFlashcardsUnknown,
+          currentIndex: (state.currentIndex + 1) % state.flashcards.length,
         };
         
       case 'NEXT_FLASHCARD':
