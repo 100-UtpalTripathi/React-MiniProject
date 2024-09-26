@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { useFlashcardContext , useFlashcardContextDispatcher} from '../context/FlashcardContext.jsx';
+import { useDispatch } from 'react-redux';
+import { addFlashcard } from '../redux/flashcardSlice'; // Adjust the import path as necessary
 import './FlashcardForm.css';
 
 const FlashcardForm = () => {
   console.log("FlashcardForm");
-  const { dispatch } = useFlashcardContextDispatcher();
+  const dispatch = useDispatch();
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
 
   const handleAddFlashcard = () => {
     if (question && answer) {
       const newFlashcard = { question, answer, status: null }; // No status initially
-      dispatch({ type: 'ADD_FLASHCARD', payload: newFlashcard });
+      dispatch(addFlashcard(newFlashcard)); // Dispatching the action to add a new flashcard
       setQuestion(''); // Clear inputs
       setAnswer('');
     }

@@ -1,39 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Flashcard from './Flashcard.jsx';
-import { useFlashcardContext } from '../context/FlashcardContext.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    markKnown,
+    markUnknown
+} from '../redux/flashcardSlice.js'; 
 import './FlashcardList.css';
 
 const FlashcardList = () => {
-  const { state, dispatch } = useFlashcardContext();
-  const { flashcards, currentIndex } = state;
+    const dispatch = useDispatch();
+    const { flashcards, currentIndex } = useSelector((state) => state.flashcards);
+    const [flippedIndex, setFlippedIndex] = useState(null); // Tracking flashcard flipped
 
-  if (flashcards.length === 0) {
-    return <div>No flashcards available.</div>;
-  }
+    if (flashcards.length === 0) {
+        return <div>No flashcards available.</div>;
+    }
 
-  const currentFlashcard = flashcards[currentIndex];
+    const currentFlashcard = flashcards[currentIndex];
 
-  const handleMarkKnown = () => {
-    dispatch({ type: 'MARK_KNOWN' });
-  };
+    const handleMarkKnown = () => {
+        dispatch(markKnown());
+    };
 
-  const handleMarkUnknown = () => {
-    dispatch({ type: 'MARK_UNKNOWN' });
-  };
+    const handleMarkUnknown = () => {
+        dispatch(markUnknown());
+    };
 
-  return (
-    <div>
-      <Flashcard flashcard={currentFlashcard} />
-      <div className="mt-2">
-        <button className="btn btn-success mr-2" onClick={handleMarkKnown}>
-          Known
-        </button>
-        <button className="btn btn-danger" onClick={handleMarkUnknown}>
-          Unknown
-        </button>
-      </div>
-    </div>
-  );
+    const handleFlip = () => {
+        setFlippedIndex(flippedIndex === currentIndex ? null : currentIndex); // Flip the current flashcard
+    };
+
+    return (
+        <div>
+            <Flashcard 
+                flashcard={currentFlashcard} 
+                isFlipped={flippedIndex === currentIndex} 
+                onFlip={handleFlip} 
+            />
+            <div className="mt-2">
+                <button className="btn btn-success mr-2" onClick={handleMarkKnown}>
+                    Known
+                </button>
+                <button className="btn btn-danger" onClick={handleMarkUnknown}>
+                    Unknown
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default FlashcardList;
