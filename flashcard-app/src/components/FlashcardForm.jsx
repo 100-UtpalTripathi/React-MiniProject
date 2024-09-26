@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { addFlashcard } from '../redux/flashcardSlice'; // Adjust the import path as necessary
 import './FlashcardForm.css';
 
 const FlashcardForm = () => {
   console.log("FlashcardForm");
+
   const dispatch = useDispatch();
+
+  // Local state for the flashcard question and answer
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
 
-  const handleAddFlashcard = () => {
+  // Memoize handleAddFlashcard to prevent re-creation on every render
+  const handleAddFlashcard = useCallback(() => {
     if (question && answer) {
       const newFlashcard = { question, answer, status: null }; // No status initially
-      dispatch(addFlashcard(newFlashcard)); // Dispatching the action to add a new flashcard
+      dispatch(addFlashcard(newFlashcard)); // Dispatch the action to add a new flashcard
       setQuestion(''); // Clear inputs
       setAnswer('');
     }
-  };
+  }, [question, answer, dispatch]); // Only re-create if question or answer or dispatch changes
 
   return (
     <div className="flashcard-form mt-4">

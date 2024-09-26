@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
+// Define the component first
 const ReviewSummary = () => {
     // Access the flashcards state from the Redux store
     const { flashcards } = useSelector((state) => state.flashcards);
@@ -8,13 +9,15 @@ const ReviewSummary = () => {
     // Local state to handle the dropdown selection (default: 'unknown')
     const [filter, setFilter] = useState('unknown');
 
-    // Filter flashcards based on the selected filter (known or unknown)
-    const filteredFlashcards = flashcards.filter(flashcard => flashcard.status === filter);
+    // Memoize filtered flashcards to avoid recalculating on every render
+    const filteredFlashcards = useMemo(() => {
+        return flashcards.filter(flashcard => flashcard.status === filter);
+    }, [flashcards, filter]);
 
-    // Handle dropdown change event
-    const handleFilterChange = (e) => {
+    // Memoize the filter change handler to prevent re-creation on each render
+    const handleFilterChange = useCallback((e) => {
         setFilter(e.target.value);
-    };
+    }, []);
 
     if (filteredFlashcards.length === 0) {
         return <div className="mt-4">No flashcards marked as {filter}.</div>;
@@ -49,4 +52,4 @@ const ReviewSummary = () => {
     );
 };
 
-export default ReviewSummary;
+export default React.memo(ReviewSummary);

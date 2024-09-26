@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Flashcard from './Flashcard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    markKnown,
-    markUnknown
-} from '../redux/flashcardSlice.js'; 
+import { markKnown, markUnknown } from '../redux/flashcardSlice.js'; 
 import './FlashcardList.css';
 
 const FlashcardList = () => {
@@ -18,17 +15,18 @@ const FlashcardList = () => {
 
     const currentFlashcard = flashcards[currentIndex];
 
-    const handleMarkKnown = () => {
+    // Memoizing event handlers to avoid re-creation on each render
+    const handleMarkKnown = useCallback(() => {
         dispatch(markKnown());
-    };
+    }, [dispatch]);
 
-    const handleMarkUnknown = () => {
+    const handleMarkUnknown = useCallback(() => {
         dispatch(markUnknown());
-    };
+    }, [dispatch]);
 
-    const handleFlip = () => {
+    const handleFlip = useCallback(() => {
         setFlippedIndex(flippedIndex === currentIndex ? null : currentIndex); // Flip the current flashcard
-    };
+    }, [flippedIndex, currentIndex]);
 
     return (
         <div>
