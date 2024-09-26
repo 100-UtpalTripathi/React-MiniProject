@@ -1,30 +1,52 @@
-import React from 'react';
-import { useFlashcardContext } from '../context/FlashcardContext.jsx';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const ReviewSummary = () => {
-  const { state } = useFlashcardContext();
-  const { flashcards } = state;
+    // Access the flashcards state from the Redux store
+    const { flashcards } = useSelector((state) => state.flashcards);
 
-  const unknownFlashcards = flashcards.filter(flashcard => flashcard.status === 'unknown');
+    // Local state to handle the dropdown selection (default: 'unknown')
+    const [filter, setFilter] = useState('unknown');
 
-  if (unknownFlashcards.length === 0) {
-    return <div className="mt-4">No flashcards marked as unknown.</div>;
-  }
+    // Filter flashcards based on the selected filter (known or unknown)
+    const filteredFlashcards = flashcards.filter(flashcard => flashcard.status === filter);
 
-  return (
-    <div className="mt-4">
-      <h3>Review Unknown Flashcards</h3>
-      <ul className="list-group">
-        {unknownFlashcards.map((flashcard, index) => (
-          <li key={index} className="list-group-item">
-            {flashcard.question} - {flashcard.answer}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    // Handle dropdown change event
+    const handleFilterChange = (e) => {
+        setFilter(e.target.value);
+    };
+
+    if (filteredFlashcards.length === 0) {
+        return <div className="mt-4">No flashcards marked as {filter}.</div>;
+    }
+
+    return (
+        <div className="mt-4">
+            <h3>Review {filter === 'unknown' ? 'Unknown' : 'Known'} Flashcards</h3>
+
+            {/* Dropdown to select known or unknown flashcards */}
+            <div className="form-group">
+                <label htmlFor="flashcard-filter">Filtered Flashcards</label>
+                <select
+                    id="flashcard-filter"
+                    className="form-control"
+                    value={filter}
+                    onChange={handleFilterChange}
+                >
+                    <option value="unknown">Unknown</option>
+                    <option value="known">Known</option>
+                </select>
+            </div>
+
+            <ul className="list-group mt-3">
+                {filteredFlashcards.map((flashcard, index) => (
+                    <li key={index} className="list-group-item">
+                        {flashcard.question} - {flashcard.answer}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
 export default ReviewSummary;
-
-
